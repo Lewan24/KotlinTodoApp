@@ -9,17 +9,26 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class TodoAdapter(private val todoItems: MutableList<TodoItem>) : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
     inner class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), OnLongClickListener {
-        init {
-            itemView.setOnLongClickListener(this)
-        }
-
         val todoItemName: TextView = itemView.findViewById(R.id.tvItemTitle)
         val todoItemDescription: TextView = itemView.findViewById(R.id.tvItemDescription)
         val todoItemIsCompleted: CheckBox = itemView.findViewById(R.id.cbItemIsCompleted)
+
+        init {
+            itemView.setOnLongClickListener(this)
+
+            todoItemIsCompleted.setOnClickListener{
+                val position = bindingAdapterPosition
+                val todoItem = todoItems[position]
+
+                todoItem.isCompleted = !todoItem.isCompleted
+                notifyItemChanged(position)
+            }
+        }
 
         override fun onLongClick(v: View?): Boolean {
             val position = bindingAdapterPosition
@@ -52,7 +61,9 @@ class TodoAdapter(private val todoItems: MutableList<TodoItem>) : RecyclerView.A
 
             val btnDelete = dialogView.findViewById<Button>(R.id.btnDelete)
             btnDelete.setOnClickListener {
-                removeTodoItem(position)
+                if (todoItem.isCompleted)
+                    removeTodoItem(position)
+                else Toast.makeText(this.itemView.context, "The todo item should be completed before deleting", Toast.LENGTH_SHORT).show()
                 dialog.dismiss()
             }
 
