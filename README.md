@@ -7,11 +7,11 @@ Application is created for android. It's just simple todo application made for l
 - Creating todo items
 - Editing todo items (long touch on selected item)
 - Delete todo item
+- Dark theme
+- Nice UI design
 
 # Roadmap
 - Store items in local db
-- Change design ( make better ui )
-- Add dark theme ( Important ;) )
 - Maybe change workflow from simple editing and creating to dialogs and separate activities as pages
 
 # Working app images
