@@ -61,10 +61,11 @@ class TodoAdapter(private val todoItems: MutableList<TodoItem>) : RecyclerView.A
 
             val btnDelete = dialogView.findViewById<Button>(R.id.btnDelete)
             btnDelete.setOnClickListener {
-                if (todoItem.isCompleted)
+                if (todoItem.isCompleted){
                     removeTodoItem(position)
+                    dialog.dismiss()
+                }
                 else Toast.makeText(this.itemView.context, "The todo item should be completed before deleting", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
             }
 
             dialog.show()
