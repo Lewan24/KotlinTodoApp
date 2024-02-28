@@ -14,7 +14,7 @@ Application is created for android. It's just simple todo application made for l
 - Add dark theme ( Important ;) )
 - Maybe change workflow from simple editing and creating to dialogs and separate activities as pages
 
-# Working app iamges
+# Working app images
 
 - Main page, list of example items<br><br>
 ![Main page](https://github.com/Lewan24/KotlinTodoApp/blob/main/ReadmeResources/MainList.PNG)<br>
