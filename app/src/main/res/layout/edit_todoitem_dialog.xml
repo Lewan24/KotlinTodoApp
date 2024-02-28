@@ -3,26 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#101010"
     android:orientation="vertical"
+    android:padding="8dp"
     tools:ignore="MissingDefaultResource"
-    android:padding="8dp">
+    android:theme="@style/AppTheme">
 
-<EditText
-    android:id="@+id/eteditTodoTitleText"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Task title"
-    android:importantForAutofill="no"
-    android:inputType="text"
-    android:textSize="24sp"/>
+    <EditText
+        android:id="@+id/eteditTodoTitleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Task title"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textSize="24sp" />
 
-<EditText
-    android:id="@+id/eteditTodoDescriptionText"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:hint="Task description"
-    android:importantForAutofill="no"
-    android:inputType="text"
-    android:textSize="24sp"/>
+    <EditText
+        android:id="@+id/eteditTodoDescriptionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Task description"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textSize="24sp" />
 
 </LinearLayout>
