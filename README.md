@@ -16,8 +16,8 @@ Application is created for android. It's just simple todo application made for l
 
 # Working app iamges
 
-##Main page, list of example items
-![Main page](https://github.com/Lewan24/KotlinTodoApp/blob/main/ReadmeResources/MainList.PNG)
+- Main page, list of example items<br><br>
+![Main page](https://github.com/Lewan24/KotlinTodoApp/blob/main/ReadmeResources/MainList.PNG)<br>
 
-##Edit dialog after long touch on selected item
+- Edit dialog after long touch on selected item<br><br>
 ![Edit dialog](https://github.com/Lewan24/KotlinTodoApp/blob/main/ReadmeResources/EdittingItem.PNG)
