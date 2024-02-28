@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnLongClickListener
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
@@ -24,31 +25,38 @@ class TodoAdapter(private val todoItems: MutableList<TodoItem>) : RecyclerView.A
             val position = bindingAdapterPosition
             val todoItem = todoItems[position]
 
-            val builder = AlertDialog.Builder(itemView.context)
             val dialogView = LayoutInflater.from(itemView.context).inflate(R.layout.edit_todoitem_dialog, null)
 
             dialogView.findViewById<EditText>(R.id.eteditTodoTitleText).text.append(todoItem.title)
             dialogView.findViewById<EditText>(R.id.eteditTodoDescriptionText).text.append(todoItem.description)
 
-            builder.setView(dialogView)
+            val dialog = AlertDialog.Builder(itemView.context)
+                .setView(dialogView)
                 .setTitle("Edit Todo Item")
-                .setPositiveButton("Save") { dialog, _ ->
-                    val title = dialogView.findViewById<EditText>(R.id.eteditTodoTitleText).text.toString()
-                    val description = dialogView.findViewById<EditText>(R.id.eteditTodoDescriptionText).text.toString()
+                .create()
 
-                    val editedTask = todoItem.copy(title = title, description = description)
-                    editTodoItem(position, editedTask)
+            val btnSave = dialogView.findViewById<Button>(R.id.btnSave)
+            btnSave.setOnClickListener {
+                val title = dialogView.findViewById<EditText>(R.id.eteditTodoTitleText).text.toString()
+                val description = dialogView.findViewById<EditText>(R.id.eteditTodoDescriptionText).text.toString()
 
-                    dialog.dismiss()
-                }
-                .setNeutralButton("Cancel") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .setNegativeButton("Delete item") {dialog, _ ->
-                    removeTodoItem(position)
-                    dialog.dismiss()
-                }
-            builder.create().show()
+                val editedTask = todoItem.copy(title = title, description = description)
+                editTodoItem(position, editedTask)
+                dialog.dismiss()
+            }
+
+            val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+            btnCancel.setOnClickListener {
+                dialog.dismiss()
+            }
+
+            val btnDelete = dialogView.findViewById<Button>(R.id.btnDelete)
+            btnDelete.setOnClickListener {
+                removeTodoItem(position)
+                dialog.dismiss()
+            }
+
+            dialog.show()
 
             return true
         }

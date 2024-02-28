@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#101010"
     android:orientation="vertical"
     android:padding="8dp"
+    android:theme="@style/AppTheme"
     tools:ignore="MissingDefaultResource"
-    android:theme="@style/AppTheme">
+    tools:layout_editor_absoluteX="50dp"
+    tools:layout_editor_absoluteY="1dp">
 
     <EditText
         android:id="@+id/eteditTodoTitleText"
@@ -16,7 +19,10 @@
         android:hint="Task title"
         android:importantForAutofill="no"
         android:inputType="text"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/eteditTodoDescriptionText"
@@ -25,6 +31,53 @@
         android:hint="Task description"
         android:importantForAutofill="no"
         android:inputType="text"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eteditTodoTitleText" />
 
-</LinearLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/eteditTodoDescriptionText"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Delete"
+            android:layout_column="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnCancel"
+            app:layout_constraintTop_toBottomOf="@+id/eteditTodoDescriptionText"
+            tools:ignore="HardcodedText"
+            style="@style/ErrorButtonStyle"/>
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_column="2"
+            android:layout_marginEnd="8dp"
+            android:text="Cancel"
+            app:layout_constraintTop_toBottomOf="@+id/eteditTodoDescriptionText"
+            tools:ignore="HardcodedText"
+            style="@style/CancelButtonStyle" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_column="1"
+            android:layout_marginEnd="8dp"
+            android:text="Save"
+            app:layout_constraintEnd_toStartOf="@+id/btnCancel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/eteditTodoDescriptionText"
+            tools:ignore="HardcodedText"
+            style="@style/SuccessButtonStyle"/>
+    </GridLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
