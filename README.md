@@ -13,10 +13,11 @@ Application is created for android. It's just simple todo application made for l
 - Change design ( make better ui )
 - Add dark theme ( Important ;) )
 - Maybe change workflow from simple editing and creating to dialogs and separate activities as pages
-- 
+
 # Working app iamges
-Main page, list of example items
+
+##Main page, list of example items
 ![Main page](https://github.com/Lewan24/KotlinTodoApp/blob/main/ReadmeResources/MainList.PNG)
 
-Edit dialog after long touch on selected item
+##Edit dialog after long touch on selected item
 ![Edit dialog](https://github.com/Lewan24/KotlinTodoApp/blob/main/ReadmeResources/EdittingItem.PNG)
