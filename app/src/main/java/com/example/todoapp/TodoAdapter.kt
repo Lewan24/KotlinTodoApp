@@ -3,7 +3,6 @@ package com.example.todoapp
 import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
@@ -12,8 +11,20 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
-class TodoAdapter(private val todoItems: MutableList<TodoItem>) : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
-    inner class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), OnLongClickListener {
+class TodoAdapter : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
+    private lateinit var databaseViewModel: TodoViewModel
+    var items = ArrayList<TodoItem>()
+
+    fun setListData(data: ArrayList<TodoItem>){
+        this.items = data
+    }
+
+    fun setViewModel(viewModel: TodoViewModel){
+        this.databaseViewModel = viewModel
+    }
+
+    inner class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnLongClickListener {
         val todoItemName: TextView = itemView.findViewById(R.id.tvItemTitle)
         val todoItemDescription: TextView = itemView.findViewById(R.id.tvItemDescription)
         val todoItemIsCompleted: CheckBox = itemView.findViewById(R.id.cbItemIsCompleted)
@@ -23,16 +34,16 @@ class TodoAdapter(private val todoItems: MutableList<TodoItem>) : RecyclerView.A
 
             todoItemIsCompleted.setOnClickListener{
                 val position = bindingAdapterPosition
-                val todoItem = todoItems[position]
+                val todoItem = items[position]
 
                 todoItem.isCompleted = !todoItem.isCompleted
-                notifyItemChanged(position)
+                databaseViewModel.update(todoItem)
             }
         }
 
         override fun onLongClick(v: View?): Boolean {
             val position = bindingAdapterPosition
-            val todoItem = todoItems[position]
+            val todoItem = items[position]
 
             val dialogView = LayoutInflater.from(itemView.context).inflate(R.layout.edit_todoitem_dialog, null)
 
@@ -50,7 +61,7 @@ class TodoAdapter(private val todoItems: MutableList<TodoItem>) : RecyclerView.A
                 val description = dialogView.findViewById<EditText>(R.id.eteditTodoDescriptionText).text.toString()
 
                 val editedTask = todoItem.copy(title = title, description = description)
-                editTodoItem(position, editedTask)
+                databaseViewModel.update(editedTask)
                 dialog.dismiss()
             }
 
@@ -62,7 +73,7 @@ class TodoAdapter(private val todoItems: MutableList<TodoItem>) : RecyclerView.A
             val btnDelete = dialogView.findViewById<Button>(R.id.btnDelete)
             btnDelete.setOnClickListener {
                 if (todoItem.isCompleted){
-                    removeTodoItem(position)
+                    databaseViewModel.delete(todoItem)
                     dialog.dismiss()
                 }
                 else Toast.makeText(this.itemView.context, "The todo item should be completed before deleting", Toast.LENGTH_SHORT).show()
@@ -79,23 +90,13 @@ class TodoAdapter(private val todoItems: MutableList<TodoItem>) : RecyclerView.A
         return TodoViewHolder(itemView)
     }
 
-    override fun getItemCount(): Int = todoItems.size
+    override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        val currentTask = todoItems[position]
+        val currentTask = items[position]
 
         holder.todoItemName.text = currentTask.title
         holder.todoItemDescription.text = currentTask.description
         holder.todoItemIsCompleted.isChecked = currentTask.isCompleted
-    }
-
-    fun removeTodoItem(position: Int) {
-        todoItems.removeAt(position)
-        notifyItemRemoved(position)
-    }
-
-    fun editTodoItem(position: Int, newTodo: TodoItem) {
-        todoItems[position] = newTodo
-        notifyItemChanged(position)
     }
 }
