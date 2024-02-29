@@ -9,9 +9,9 @@ Application is created for android. It's just simple todo application made for l
 - Delete todo item
 - Dark theme
 - Nice UI design
+- Store items in local db
 
 # Roadmap
-- Store items in local db
 - Maybe change workflow from simple editing and creating to dialogs and separate activities as pages
 
 # Working app images
